@@ -1,4 +1,4 @@
-import { IsEmail, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsString } from 'class-validator';
 import { User } from '../entities/user.entity';
 
 export class CreateUserDto extends User {
@@ -6,6 +6,5 @@ export class CreateUserDto extends User {
   name: string;
 
   @IsEmail()
-  @IsOptional()
-  email?: string;
+  email: string;
 }
