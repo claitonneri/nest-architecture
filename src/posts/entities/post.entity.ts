@@ -1,1 +1,9 @@
-export class Post {}
+import { Prisma } from '@prisma/client';
+
+export class Post implements Prisma.PostUncheckedCreateInput {
+  id?: string;
+  title: string;
+  content?: string;
+  published?: boolean;
+  author_id: string;
+}
