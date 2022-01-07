@@ -30,11 +30,23 @@ export class UsersService {
     });
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    return undefined;
+  async update(id: string, { name, email }: UpdateUserDto): Promise<User> {
+    return this.prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        email,
+      },
+    });
   }
 
-  async remove(id: number): Promise<void> {
-    return undefined;
+  async remove(id: string): Promise<User> {
+    return this.prisma.user.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
