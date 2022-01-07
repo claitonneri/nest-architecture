@@ -1,67 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { EntityNotFoundError } from 'src/errors/entity-not-found.error';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  private users: User[] = [
-    {
-      id: 1,
-      name: 'Claiton Neri',
-      email: 'claitonneri@hotmail.com',
-    },
-  ];
-
-  create(createUserDto: CreateUserDto) {
-    const currentMaxId = this.users[this.users.length - 1]?.id || 0;
-    const id = currentMaxId + 1;
-
-    const user: User = {
-      id,
-      ...createUserDto,
-    };
-
-    this.users.push(user);
-
-    return user;
+  async findAll(): Promise<User[]> {
+    return undefined;
   }
 
-  findAll() {
-    return this.users;
+  async findOne(id: number): Promise<User | null> {
+    return undefined;
   }
 
-  findOne(id: number) {
-    const user = this.users.find((user) => user.id === id);
-
-    if (!user) {
-      throw new EntityNotFoundError('User not exists.');
-    }
-
-    return user;
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    return undefined;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    const user = this.findOne(id);
-
-    const newUser: User = {
-      ...user,
-      ...updateUserDto,
-    };
-
-    const index = this.users.indexOf(user);
-
-    this.users[index] = newUser;
-
-    return newUser;
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    return undefined;
   }
 
-  remove(id: number) {
-    const user = this.findOne(id);
-
-    const index = this.users.indexOf(user);
-
-    this.users.splice(index, 1);
+  async remove(id: number): Promise<void> {
+    return undefined;
   }
 }
