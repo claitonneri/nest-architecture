@@ -6,15 +6,8 @@ import * as bcrypt from 'bcrypt';
 import { ILoginRequestBody } from './dto/login.dto';
 import { UsersService } from 'src/users/users.service';
 import { UnauthorizedError } from 'src/errors/unauthorized.error';
-
-export interface IUserPayload {
-  username: string;
-  sub: string;
-}
-
-export interface IUserToken {
-  accessToken: string;
-}
+import { IUserPayload } from './model/IUserPayload';
+import { IUserToken } from './model/IUserToken';
 
 @Injectable()
 export class AuthService {
