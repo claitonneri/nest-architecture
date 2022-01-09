@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { EntityNotFoundError } from 'src/errors/entity-not-found.error';
+import { EntityNotFoundError } from 'src/errors/EntityNotFoundError';
 
 @Injectable()
 export class EntityNotFoundInterceptor implements NestInterceptor {

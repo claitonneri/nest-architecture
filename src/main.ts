@@ -2,8 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from './app.module';
-import { EntityNotFoundInterceptor } from './interceptors/entity-not-found.Interceptor';
-import { UnauthorizedErrorInterceptor } from './interceptors/unauthorized.interceptor';
+import { EntityNotFoundInterceptor } from './interceptors/entity-not-found.interceptor';
+import { UnauthorizedInterceptor } from './interceptors/unauthorized.interceptor';
+import { DatabaseInterceptor } from './interceptors/database.interceptor';
+import { ConflictInterceptor } from './interceptors/conflict.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,8 +21,10 @@ async function bootstrap() {
 
   // Interceptor
   app.useGlobalInterceptors(
+    new ConflictInterceptor(),
     new EntityNotFoundInterceptor(),
-    new UnauthorizedErrorInterceptor(),
+    new UnauthorizedInterceptor(),
+    new DatabaseInterceptor(),
   );
 
   await app.listen(3000);

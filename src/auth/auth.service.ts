@@ -5,7 +5,7 @@ import * as bcrypt from 'bcrypt';
 
 import { ILoginRequestBody } from './dto/login.dto';
 import { UsersService } from 'src/users/users.service';
-import { UnauthorizedError } from 'src/errors/unauthorized.error';
+import { UnauthorizedError } from 'src/errors/UnauthorizedError';
 import { IUserPayload } from './model/IUserPayload';
 import { IUserToken } from './model/IUserToken';
 

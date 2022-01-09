@@ -8,6 +8,7 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  HttpException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -16,6 +17,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Get('hello')
+  getHello() {
+    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+  }
 
   @Post()
   create(@Body() { name, email, password }: CreateUserDto) {
