@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { Producer } from '@nestjs/microservices/external/kafka.interface';
 import { Post } from '@prisma/client';
 
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -7,10 +8,14 @@ import { UpdatePostDto } from './dto/update-post.dto';
 
 @Injectable()
 export class PostsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    @Inject('KAFKA_PRODUCER')
+    private kafkaProducer: Producer,
+  ) {}
 
   async create({ title, content, author_id }: CreatePostDto): Promise<Post> {
-    return this.prisma.post.create({
+    const post = await this.prisma.post.create({
       data: {
         title,
         content,
@@ -24,6 +29,13 @@ export class PostsService {
         author: true,
       },
     });
+
+    await this.kafkaProducer.send({
+      topic: 'pagamentos',
+      messages: [{ key: 'pagamentos', value: JSON.stringify(post) }],
+    });
+
+    return post;
   }
 
   async findAll(): Promise<Post[]> {

@@ -11,6 +11,8 @@ import {
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { KafkaMessage } from '@nestjs/microservices/external/kafka.interface';
 
 @Controller('posts')
 export class PostsController {
@@ -49,5 +51,10 @@ export class PostsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.postsService.remove(id);
+  }
+
+  @MessagePattern('pagamentos')
+  consumer(@Payload() message: KafkaMessage): void {
+    console.log(message.value);
   }
 }
